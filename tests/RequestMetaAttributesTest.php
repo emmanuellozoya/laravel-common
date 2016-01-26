@@ -3,6 +3,7 @@
 use PHPUnit_Framework_TestCase;
 use Mockery as m;
 use Elozoya\LaravelCommon\RequestMetaAttributes;
+use \Illuminate\Support\Facades\Request;
 
 /*
  * RequestMetaAttributesTest
@@ -11,12 +12,10 @@ use Elozoya\LaravelCommon\RequestMetaAttributes;
  */
 class RequestMetaAttributesTest extends PHPUnit_Framework_TestCase
 {
-    private $requestMock;
     private $requestMetaAttributes;
 
     public function setUp()
     {
-        $this->requestMock = m::mock('\Illuminate\Http\Request');
         $this->requestMetaAttributes = new RequestMetaAttributes;
     }
 
@@ -45,8 +44,8 @@ class RequestMetaAttributesTest extends PHPUnit_Framework_TestCase
     public function it_should_return_a_list_of_some_meta_attributes()
     {
         $ip = '192.168.1.1';
-        $this->requestMock->shouldReceive('ip')->withNoArgs()->andReturn($ip);
-        $metaAttributes = $this->requestMetaAttributes->getMetaAttributes($this->requestMock);
+        Request::shouldReceive('ip')->withNoArgs()->once()->andReturn($ip);
+        $metaAttributes = $this->requestMetaAttributes->getMetaAttributes();
         $expected = [
           'meta_ip_address' => $ip,
         ];
@@ -66,9 +65,9 @@ class RequestMetaAttributesTest extends PHPUnit_Framework_TestCase
             'foo' => 'foo',
             'bar' => 'bar',
         ];
-        $this->requestMock->shouldReceive('ip')->withNoArgs()->andReturn($ip);
-        $this->requestMock->shouldReceive('all')->withNoArgs()->andReturn($input);
-        $inputAndMetaAttributes = $this->requestMetaAttributes->getInputAndMetaAttributes($this->requestMock);
+        Request::shouldReceive('ip')->withNoArgs()->once()->andReturn($ip);
+        Request::shouldReceive('all')->withNoArgs()->once()->andReturn($input);
+        $inputAndMetaAttributes = $this->requestMetaAttributes->getInputAndMetaAttributes();
         $expected = [
           'meta_ip_address' => $ip,
           'foo' => 'foo',

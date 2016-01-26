@@ -7,17 +7,17 @@
  */
 class RequestMetaAttributes
 {
-    public function getMetaAttributes(\Illuminate\Http\Request $request)
+    public function getMetaAttributes()
     {
         return [
-            'meta_ip_address' => $request->ip(),
+            'meta_ip_address' => \Illuminate\Support\Facades\Request::ip(),
         ];
     }
 
-    public function getInputAndMetaAttributes(\Illuminate\Http\Request $request)
+    public function getInputAndMetaAttributes()
     {
-        $metaAttributes = $this->getMetaAttributes($request);
-        $inputAttributes = $request->all();
+        $metaAttributes = $this->getMetaAttributes();
+        $inputAttributes = \Illuminate\Support\Facades\Request::all();
         return array_merge($metaAttributes, $inputAttributes);
     }
 }
