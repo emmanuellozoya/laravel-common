@@ -23,5 +23,5 @@
             "Elozoya\\LaravelCommon\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
