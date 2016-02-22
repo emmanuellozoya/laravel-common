@@ -14,6 +14,7 @@ class ElozoyaLaravelCommonServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'elcommon');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'elcommon');
     }
 
     /**
